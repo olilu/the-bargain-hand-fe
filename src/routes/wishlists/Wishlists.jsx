@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useLoaderData } from "react-router-dom";
-import WishlistCard from "../components/cards/WishlistCard";
-import AddListCard from "../components/cards/AddWishlistCard";
+import WishlistCard from "../../components/cards/WishlistCard";
+import AddWishlistCard from "../../components/cards/AddWishlistCard";
 
 function Wishlists() {
     const wishlists =  useLoaderData();
@@ -13,7 +13,7 @@ function Wishlists() {
                         {wishlists.map((wishlist) => <WishlistCard key={wishlist.uuid} uuid={wishlist.uuid} name={wishlist.name} email={wishlist.email} country={wishlist.country_code} language={wishlist.language_code} />)}
                     </> 
                 )}
-                <AddListCard />
+                <AddWishlistCard />
             </div>
         </>
     );
@@ -22,8 +22,11 @@ function Wishlists() {
 export default Wishlists;
 
 export async function loader() {
-    const response = await fetch('http://localhost:8080/wishlist/all');
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/all`);
+    if (!response.ok) {
+        console.error(error);
+        return [];
+    }
     const wishlists = await response.json();
-    console.log(wishlists);
     return wishlists;
 };
