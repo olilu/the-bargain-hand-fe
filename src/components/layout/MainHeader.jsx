@@ -13,7 +13,7 @@ function MainHeader() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/">Home</Nav.Link>
-            <Nav.Link href="/new-list">Add Wishlist</Nav.Link>
+            <Nav.Link href="/add-wishlist">Add Wishlist</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

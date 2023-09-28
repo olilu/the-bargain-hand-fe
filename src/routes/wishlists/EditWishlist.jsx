@@ -1,9 +1,10 @@
-import { Link, Form, redirect } from 'react-router-dom';
+import { Link, Form, redirect, useLoaderData } from 'react-router-dom';
 import Modal from '../../components/layout/Modal';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-function EditWishlist(uuid, name, email,language, country) {
+function EditWishlist() {
+    const wishlist =  useLoaderData();
     return (
         <Modal>
             <div className="mb-3">
@@ -12,19 +13,19 @@ function EditWishlist(uuid, name, email,language, country) {
                 <Form method='post'>
                     <div className="mb-3">
                         <label htmlFor="name">Wishlist Name</label>
-                        <input className='form-control' type="text" id="name" name='name' defaultValue={name}  required />
+                        <input className='form-control' type="text" id="name" name='name' defaultValue={wishlist.name}  required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="email">E-Mail</label>
-                        <input className='form-control' type="text" name='email' id="email" defaultValue={email} required />
+                        <input className='form-control' type="text" name='email' id="email" defaultValue={wishlist.email} required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="country_code">Country Code</label>
-                        <input className='form-control' type="text" name='country_code' id="country_code" defaultValue={country}/>
+                        <input className='form-control' type="text" name='country_code' id="country_code" defaultValue={wishlist.country_code}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="language_code">Language Code</label>
-                        <input className='form-control' type="text" name='language_code' id="language_code" defaultValue={language} />
+                        <input className='form-control' type="text" name='language_code' id="language_code" defaultValue={wishlist.language_code} />
                     </div>
                     <p className="mb-3">
                         <Link className="btn btn-secondary  me-3" type="button" to="..">Cancel</Link>
@@ -36,6 +37,16 @@ function EditWishlist(uuid, name, email,language, country) {
 }
 
 export default EditWishlist;
+
+export async function loader({params}) {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${params.uuid}`);
+    if (!response.ok) {
+        console.error(error);
+        return [];
+    }
+    const wishlist = await response.json();
+    return wishlist;
+}
 
 export async function action({params, request}) {
     const formData = await request.formData();
