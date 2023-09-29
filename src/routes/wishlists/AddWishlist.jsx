@@ -1,36 +1,18 @@
-import { Link, Form, redirect } from 'react-router-dom';
-import Modal from '../../components/layout/Modal';
+import { redirect } from 'react-router-dom';
+import  {Modal}  from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import WishlistForm from '../../components/forms/WishlistForm';
 
 
 function NewWishlist() {
     return (
-        <Modal>
-            <div className="mb-3">
-                <h5 className="modal-title">Add New Wishlist</h5>
-            </div>
-                <Form method='post'>
-                    <div className="mb-3">
-                        <label htmlFor="name">Wishlist Name</label>
-                        <input className='form-control' type="text" id="name" name='name' placeholder='MyWishlist'  required />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="email">E-Mail</label>
-                        <input className='form-control' type='email' name='email' id="email" placeholder='email@example.com' required />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="country_code">Country Code</label>
-                        <input className='form-control' type="text" name='country_code' id="country_code" defaultValue='CH'/>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="language_code">Language Code</label>
-                        <input className='form-control' type="text" name='language_code' id="language_code" defaultValue='de' />
-                    </div>
-                    <p className="mb-3">
-                        <Link className="btn btn-secondary  me-3" type="button" to="..">Cancel</Link>
-                        <button className="btn btn-primary" type="submit">Submit</button>
-                    </p>
-                </Form>
+        <Modal show={true} contentClassName='bg-dark text-light'>
+            <Modal.Header>
+                <Modal.Title>Add New Wishlist</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <WishlistForm/>
+            </Modal.Body>
         </Modal>
     );
 }

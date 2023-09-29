@@ -5,7 +5,7 @@ import { MdPlaylistAdd } from "react-icons/md";
 
 function AddWishlistCard() {
     return (
-        <div className="card my-3 mx-2 text-center text-white bg-secondary" style={{ width: '10rem' }}>
+        <div className="card my-3 mx-2 text-center text-white bg-secondary" style={{ width: '12rem' }}>
             <Link to="/add-wishlist" className="link-light text-decoration-none">
                 <div className="card-body">
                     <MdPlaylistAdd size={50} />

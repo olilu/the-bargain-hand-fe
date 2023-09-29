@@ -47,7 +47,7 @@ function WishlistCard({uuid, name, language, country}) {
 
     return (
         <> 
-            <div className="card my-3 mx-2 text-center text-white bg-dark" style={{width: '10rem'}}>
+            <div className="card my-3 mx-2 text-center text-white bg-dark" style={{width: '12rem'}}>
                 <Link to={`${uuid}/games`} className="link-light text-decoration-none">
                     <div className="card-body">
                             <MdList size={30}/>
