@@ -13,7 +13,7 @@ function MainHeader() {
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} href="/"><img src={logo} alt='Bargain Hand'/></Navbar.Brand>
+        <Navbar.Brand as={Link} href="/"><img src={logo} alt='Bargain Hand' /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
