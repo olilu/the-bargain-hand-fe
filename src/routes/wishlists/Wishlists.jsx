@@ -1,9 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { useLoaderData, Outlet } from "react-router-dom";
+import { useLoaderData, Outlet, useOutletContext } from "react-router-dom";
 import WishlistCard from "../../components/cards/WishlistCard";
 import AddWishlistCard from "../../components/cards/AddWishlistCard";
+import { set } from 'react-hook-form';
 
 function Wishlists() {
+    const [title, setTitle] = useOutletContext();
+    setTitle('Wishlists Overview');
     const wishlists =  useLoaderData();
     return (
         <>

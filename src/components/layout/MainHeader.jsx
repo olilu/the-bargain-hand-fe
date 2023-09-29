@@ -1,25 +1,40 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useMatch } from 'react-router-dom';
 import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
 
-function MainHeader() {
+function MainHeader({title}) {
   const navigate = useNavigate();
   function addWishlistHandler() {
     navigate('/add-wishlist')
+  }
+
+  function checkPricesHandler() {
+    console.log("check prices");
   }
 
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
         <Navbar.Brand as={Link} href="/"><img src={logo} alt='Bargain Hand' /></Navbar.Brand>
+        <Navbar.Text className="text-white">Bargain Hand</Navbar.Text>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse>
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/">Home</Nav.Link>
-            <Nav.Item className="ms-2"><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Item>
+              {useMatch('/') && (
+                    <>
+                        <Nav.Item className="ms-2"><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Item>
+                    </> 
+              )}
+              {useMatch(':uuid/games') && (
+                    <>
+                        <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler}>Check Prices</Button></Nav.Item>
+                    </> 
+              )}
           </Nav>
+            <Nav.Item className="ms-2 text-white"><h4>{title}</h4></Nav.Item>
         </Navbar.Collapse>
       </Container>
     </Navbar>
