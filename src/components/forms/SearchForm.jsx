@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Form, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
-function SearchForm() {
+function SearchForm({wishlsit_uuid, setIsLoading}) {
     const [shop, setShop] = useState('PlayStation'); // ['PlayStation', 'Nintendo']
     const { register, handleSubmit} = useForm();
     const navigate = useNavigate();
@@ -13,8 +13,22 @@ function SearchForm() {
     }
 
     const onSubmit = async (data) => {
+        setIsLoading(true);
         console.log("shop: " + shop);
         console.log("search data: " + data.search);
+        console.log("wishlist_uuid: " + wishlsit_uuid);
+        const url = `${import.meta.env.VITE_BACKEND_URL}/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlsit_uuid}`;
+        console.log(url);
+        const res = await fetch(url);
+        if (!res.ok) {
+            console.error(error);
+            console.log(`${res.url} returned ${res.status} ${res.statusText}`);
+        }
+        const games = await res.json();
+        console.log(games);
+        sessionStorage.setItem('games', JSON.stringify(games));
+        setIsLoading(false);
+        navigate(`/${wishlsit_uuid}/search`);
     };
 
     return (

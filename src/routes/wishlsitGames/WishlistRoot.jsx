@@ -1,18 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchForm from '../../components/forms/SearchForm';
 import { Outlet, useOutletContext, useLoaderData } from 'react-router';
+import { useState } from 'react';
+import SearchForm from '../../components/forms/SearchForm';
+import LoadingSpinner from '../../components/layout/LoadingSpinner';
 
 function WishlistRoot() {
     const wishlist = useLoaderData();
     const [title, setTitle] = useOutletContext();
+    const [isLoading, setIsLoading] = useState(false);
     setTitle(`Wishlist ${wishlist.name}`);
     return (
         <>
             <div className="d-flex justify-content-center">
-                <SearchForm />
+                <SearchForm wishlsit_uuid={wishlist.uuid} isLoading={isLoading} setIsLoading={setIsLoading}/>
             </div>
             <hr />
-            <Outlet context={wishlist}/>
+            {isLoading 
+                ? (<LoadingSpinner />) 
+                : (<Outlet context={wishlist}/>)}
         </>
 
     );

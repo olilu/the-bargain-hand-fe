@@ -10,6 +10,7 @@ import AddWishlist, {action as newWishlistAction} from './routes/wishlists/AddWi
 import EditWishlist, {loader as editWishlistLoader, action as editWishlistAction} from './routes/wishlists/EditWishlist'
 import WishlistRoot, {loader as wishlistRootLoader} from './routes/wishlsitGames/WishlistRoot'
 import WishlistGames, {loader as wishlistGamesLoader} from './routes/wishlsitGames/WishlistGames'
+import WishlistSearch, {loader as wishlistSearchLoader} from './routes/wishlsitGames/WishlistSearch'
 
 
 const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       ]},
       { path: ':uuid', element: <WishlistRoot/>, loader: wishlistRootLoader, children: [
         { path: 'games', element: <WishlistGames />, loader: wishlistGamesLoader},
+        { path: 'search', element: <WishlistSearch />, loader: wishlistSearchLoader},
       ]},
     ]},
 ]);

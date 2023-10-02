@@ -1,10 +1,11 @@
-import { Link, useNavigate, useMatch } from 'react-router-dom';
+import { Link, useNavigate, useMatch, useLocation } from 'react-router-dom';
 import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
 
 function MainHeader({title}) {
+  const location = useLocation();
   const navigate = useNavigate();
   function addWishlistHandler() {
     navigate('/add-wishlist')
@@ -12,6 +13,10 @@ function MainHeader({title}) {
 
   function checkPricesHandler() {
     console.log("check prices");
+  }
+
+  function doneHandler() {
+    navigate(location.pathname.replace('search', 'games'));
   }
 
   return (
@@ -31,6 +36,11 @@ function MainHeader({title}) {
               {useMatch(':uuid/games') && (
                     <>
                         <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler}>Check Prices</Button></Nav.Item>
+                    </> 
+              )}
+              {useMatch(':uuid/search') && (
+                    <>
+                        <Nav.Item className="ms-2"><Button variant='success' onClick={doneHandler}>Done</Button></Nav.Item>
                     </> 
               )}
           </Nav>
