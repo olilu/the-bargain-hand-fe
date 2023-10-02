@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate, useMatch, useLocation } from 'react-router-dom';
 import { Nav, Navbar, Container, Button, Spinner } from 'react-bootstrap';
-import { MdCheckCircle } from 'react-icons/md';
+import { MdCached, MdCheckCircle } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
 
-function Navigation({title}) {
+function Navigation({ title }) {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   function addWishlistHandler() {
     navigate('/add-wishlist')
@@ -23,10 +24,14 @@ function Navigation({title}) {
     const res = await fetch(url);
     if (!res.ok) {
       console.log(`${res.url} returned ${res.status} ${res.statusText}`);
-    } else {
-      navigate(0);
-    };
+    }
     setIsLoading(false);
+    setChecked(true);
+    navigate(location.pathname, { replace: true });
+  }
+
+  function reloadHandler() {
+    navigate(location.pathname);
   }
 
   function doneHandler() {
@@ -42,26 +47,30 @@ function Navigation({title}) {
         <Navbar.Collapse>
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/">Home</Nav.Link>
-              {useMatch('/') && (
-                    <>
-                        <Nav.Item className="ms-2"><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Item>
-                    </> 
-              )}
-              {useMatch(':uuid/games') && (
-                    <>
-                      <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler} disabled={isLoading}>
-                            {isLoading && (<Spinner as="span" animation="border" variant="dark" size="sm" className='me-1' />)}
-                            Check Prices</Button>
-                      </Nav.Item>
-                    </> 
-              )}
-              {useMatch(':uuid/search') && (
-                    <>
-                        <Nav.Item className="ms-2"><Button variant='success' onClick={doneHandler}>Done</Button></Nav.Item>
-                    </> 
-              )}
+            {useMatch('/') && (
+              <>
+                <Nav.Item className="ms-2"><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Item>
+              </>
+            )}
+            {useMatch(':uuid/games') && (
+              <>
+                <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler} disabled={isLoading}>
+                  {isLoading && (<Spinner as="span" animation="border" variant="dark" size="sm" className='me-1' />)}
+                  Check Prices</Button>
+                </Nav.Item>
+                <Nav.Item className="ms-2"><Button variant='light' onClick={reloadHandler} >
+                  <MdCached size={20} className='me-1' />
+                  Reload</Button>
+                </Nav.Item>
+              </>
+            )}
+            {useMatch(':uuid/search') && (
+              <>
+                <Nav.Item className="ms-2"><Button variant='success' onClick={doneHandler}>Done</Button></Nav.Item>
+              </>
+            )}
           </Nav>
-            <Nav.Item className="ms-2 text-white"><h4>{title}</h4></Nav.Item>
+          <Nav.Item className="ms-2 text-white"><h4>{title}</h4></Nav.Item>
         </Navbar.Collapse>
       </Container>
     </Navbar>

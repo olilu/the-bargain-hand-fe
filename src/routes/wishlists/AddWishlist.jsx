@@ -11,7 +11,7 @@ function NewWishlist() {
                 <Modal.Title>Add New Wishlist</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <WishlistForm/>
+                <WishlistForm actionUrl="/add-wishlist"/>
             </Modal.Body>
         </Modal>
     );
@@ -22,6 +22,15 @@ export default NewWishlist;
 export async function action({request}) {
     const formData = await request.formData();
     const postData = Object.fromEntries(formData);
+
+    const locale = `${postData.language_code}-${postData.country_code}`;
+    const isLocaleValid = Intl.DateTimeFormat.supportedLocalesOf(locale).length > 0;
+    
+    if (!isLocaleValid) {
+        return {error: `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`};
+
+    }
+    
     console.log(JSON.stringify(postData));
     await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/create`, {
       method: 'POST',

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 function GameCard({ game, locale, type, addedGames }) {
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
     let colortype = 'bg-dark';
 
      if (type === 'search') {
@@ -84,7 +85,7 @@ function GameCard({ game, locale, type, addedGames }) {
             console.error(error);
             console.log(`${res.url} returned ${res.status} ${res.statusText}`);
         }
-        navigate(0);
+        navigate(location.pathname, { replace: true });
     }
 
     return (

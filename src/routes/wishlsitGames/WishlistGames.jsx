@@ -8,7 +8,6 @@ function WishlistGames() {
     //const [title, setTitle] = useOutletContext();
     //setTitle(`Wishlist ${wishlist.name}`);
     const locales = `${wishlist.language_code}-${wishlist.country_code}`
-    console.log(locales);
     return (
         <>
             <CardList games={games} locales={locales} type='list'/>

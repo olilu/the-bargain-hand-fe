@@ -1,6 +1,8 @@
-import { Link, Form } from 'react-router-dom';
+import { Link, Form, useActionData } from 'react-router-dom';
 
-function WishlistForm({email=null, name=null, country_code='CH', language_code='de'}) {
+function WishlistForm({email=null, name=null, country_code='CH', language_code='de', actionURL}) {
+    const errorData = useActionData();
+
     let emailInputProps = {
         type: 'email',
         name: 'email',
@@ -23,7 +25,12 @@ function WishlistForm({email=null, name=null, country_code='CH', language_code='
     }
 
     return (
-    <Form method='post'>
+    <Form method='post' action={actionURL}>
+        {errorData && (
+            <div className="alert alert-danger" role="alert">
+                {errorData.error}
+            </div>
+        )}
         <div className="mb-3">
             <label htmlFor="name">Wishlist Name</label>
             <input className='form-control' required {...nameInputProps} />
@@ -34,11 +41,11 @@ function WishlistForm({email=null, name=null, country_code='CH', language_code='
         </div>
         <div className="mb-3">
             <label htmlFor="country_code">Country Code</label>
-            <input className='form-control' type="text" name='country_code' id="country_code" defaultValue={country_code}/>
+            <input className='form-control' type="text" name='country_code' id="country_code" defaultValue={country_code} maxLength={2}/>
         </div>
         <div className="mb-3">
             <label htmlFor="language_code">Language Code</label>
-            <input className='form-control' type="text" name='language_code' id="language_code" defaultValue={language_code} />
+            <input className='form-control' type="text" name='language_code' id="language_code" defaultValue={language_code} maxLength={2}/>
         </div>
         <p className="mb-3">
             <Link className="btn btn-secondary  me-3" type="button" to="..">Cancel</Link>
