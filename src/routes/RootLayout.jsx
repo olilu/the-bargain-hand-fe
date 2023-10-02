@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import MainHeader from "../components/layout/MainHeader";
+import Navigation from "../components/layout/Navigation";
 import 'bootstrap/dist/css/bootstrap.css';
 
 function RootLayout() {
@@ -9,7 +9,7 @@ function RootLayout() {
 
   return (
     <>
-        <MainHeader title={title}/>
+        <Navigation title={title}/>
         <main className="row justify-content-md-center">
           <div className="col col-lg-2">
           </div>

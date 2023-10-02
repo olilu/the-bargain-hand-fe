@@ -1,18 +1,32 @@
+import { useState } from 'react';
 import { Link, useNavigate, useMatch, useLocation } from 'react-router-dom';
-import { Nav, Navbar, Container, Button } from 'react-bootstrap';
+import { Nav, Navbar, Container, Button, Spinner } from 'react-bootstrap';
+import { MdCheckCircle } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
 
-function MainHeader({title}) {
+function Navigation({title}) {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   function addWishlistHandler() {
     navigate('/add-wishlist')
   }
 
-  function checkPricesHandler() {
-    console.log("check prices");
+  async function checkPricesHandler() {
+    setIsLoading(true);
+    const wishlistUuid = location.pathname.split('/')[1];
+    console.log("wishlsit uuid: " + wishlistUuid);
+    const url = `${import.meta.env.VITE_BACKEND_URL}/wishlist/${wishlistUuid}/check-prices`;
+    console.log(url);
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.log(`${res.url} returned ${res.status} ${res.statusText}`);
+    } else {
+      navigate(0);
+    };
+    setIsLoading(false);
   }
 
   function doneHandler() {
@@ -35,7 +49,10 @@ function MainHeader({title}) {
               )}
               {useMatch(':uuid/games') && (
                     <>
-                        <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler}>Check Prices</Button></Nav.Item>
+                      <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler} disabled={isLoading}>
+                            {isLoading && (<Spinner as="span" animation="border" variant="dark" size="sm" className='me-1' />)}
+                            Check Prices</Button>
+                      </Nav.Item>
                     </> 
               )}
               {useMatch(':uuid/search') && (
@@ -51,4 +68,4 @@ function MainHeader({title}) {
   );
 };
 
-export default MainHeader;
+export default Navigation;
