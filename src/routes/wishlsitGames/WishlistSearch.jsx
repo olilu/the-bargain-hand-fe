@@ -5,7 +5,7 @@ import {loader as wishlistGamesLoader} from './WishlistGames'
 import 'bootstrap/dist/css/bootstrap.css';
 
 function WishlistSearch() {
-    const [games, wishlist_uuid] = useLoaderData();
+    const games = useLoaderData();
     const wishlist = useOutletContext();
     const [addedGames, setAddedGames] = useState([])
     const locales = `${wishlist.language_code}-${wishlist.country_code}`
@@ -13,7 +13,7 @@ function WishlistSearch() {
 
     useEffect(() => {
         async function fetchAddedGames() {
-            const WishlistGames = await wishlistGamesLoader({params: {uuid: wishlist_uuid}});
+            const WishlistGames = await wishlistGamesLoader({params: {uuid: wishlist.uuid}});
             setAddedGames(WishlistGames);
         }
         fetchAddedGames();
@@ -28,7 +28,7 @@ function WishlistSearch() {
 
 export default WishlistSearch;
 
-export async function loader({ params }) {
+export async function loader() {
     const searchList = JSON.parse(sessionStorage.getItem("games"));
-    return [searchList, params.uuid];
+    return searchList;
 }
