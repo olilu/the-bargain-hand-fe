@@ -3,6 +3,7 @@ import { Outlet, useOutletContext, useLoaderData } from 'react-router';
 import { useState } from 'react';
 import SearchForm from '../../components/forms/SearchForm';
 import LoadingPacman from '../../components/layout/LoadingPacman';
+import PageTitle from '../../components/layout/PageTitle';
 
 function WishlistRoot() {
     const wishlist = useLoaderData();
@@ -10,8 +11,7 @@ function WishlistRoot() {
     const [errorMessage, setErrorMessage] = useState(null);
     return (
         <>
-            <h3 className="text-center">Wishlist {wishlist.name}</h3>
-            <hr />
+            <PageTitle title={`Wishlist: ${wishlist.name}`} />
             <div className="d-flex justify-content-center">
                 <SearchForm 
                     wishlsit_uuid={wishlist.uuid}

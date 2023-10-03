@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { useState } from "react";
 import { useLoaderData, Outlet, useOutletContext } from "react-router-dom";
 import WishlistCard from "../../components/cards/WishlistCard";
 import AddWishlistCard from "../../components/cards/AddWishlistCard";
+import PageTitle from '../../components/layout/PageTitle';
 
 function Wishlists() {
     let errorMessage= null;
@@ -10,11 +10,17 @@ function Wishlists() {
     errorMessage = error;
     return (
         <>
-            <h3 className="text-center">Wishlists Overview</h3>
+            <PageTitle title="Wishlist Overview" />
             <div className="row container-fluid justify-content-md-center">
                 {wishlists.length > 0 && (
                     <>
-                        {wishlists.map((wishlist) => <WishlistCard key={wishlist.uuid} uuid={wishlist.uuid} name={wishlist.name} email={wishlist.email} country={wishlist.country_code} language={wishlist.language_code} />)}
+                        {wishlists.map((wishlist) => <WishlistCard 
+                            key={wishlist.uuid} 
+                            uuid={wishlist.uuid} 
+                            name={wishlist.name} 
+                            email={wishlist.email} 
+                            country={wishlist.country_code} 
+                            language={wishlist.language_code} />)}
                     </> 
                 )}
                 {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}

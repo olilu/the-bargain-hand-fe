@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useMatch, useLocation } from 'react-router-dom';
 import { Nav, Navbar, Container, Button, Spinner } from 'react-bootstrap';
-import { MdCached, MdCheckCircle } from 'react-icons/md';
+import { MdCached } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
@@ -9,7 +9,6 @@ import logo from '../../assets/bargain_hand_white.png';
 function Navigation() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
-  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   function addWishlistHandler() {
     navigate('/add-wishlist')
@@ -26,7 +25,6 @@ function Navigation() {
       console.log(`${res.url} returned ${res.status} ${res.statusText}`);
     }
     setIsLoading(false);
-    setChecked(true);
     navigate(location.pathname, { replace: true });
   }
 

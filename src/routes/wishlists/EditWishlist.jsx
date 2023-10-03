@@ -14,7 +14,12 @@ function EditWishlist() {
                 <Modal.Title>Edit Wishlist</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <WishlistForm actionURL={location.pathname} email={wishlist.email} name={wishlist.name} country_code={wishlist.country_code} language_code={wishlist.language_code} />
+                <WishlistForm 
+                    actionURL={location.pathname} 
+                    email={wishlist.email} 
+                    name={wishlist.name} 
+                    country_code={wishlist.country_code} 
+                    language_code={wishlist.language_code} />
             </Modal.Body>
         </Modal>
     );
