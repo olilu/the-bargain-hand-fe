@@ -104,7 +104,7 @@ function GameCard({ game, locale, type, addedGames }) {
             </div>
             <div className='card-footer'>                
                 {(type === 'search' && !(gameAlreadyAdded())) && (
-                    <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd}>
+                    <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd} style={{'box-shadow': '0 .125rem .25rem #000000'}}>
                         Add
                     </Button>
                 )}

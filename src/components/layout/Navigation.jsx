@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import logo from '../../assets/bargain_hand_white.png';
 
-function Navigation({ title }) {
+function Navigation() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -42,35 +42,32 @@ function Navigation({ title }) {
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
         <Navbar.Brand as={Link} href="/"><img src={logo} alt='Bargain Hand' /></Navbar.Brand>
-        <Navbar.Text className="text-white">Bargain Hand</Navbar.Text>
+        <Navbar.Text className="text-white fs-5 me-2">Bargain Hand</Navbar.Text>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse>
           <Nav className="me-auto">
-            <Nav.Link as={Link} href="/">Home</Nav.Link>
+            <Nav.Link as={Link} href="/"><Button variant='light'>Home</Button></Nav.Link>
             {useMatch('/') && (
-              <>
-                <Nav.Item className="ms-2"><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Item>
-              </>
+                <Nav.Link><Button variant='light' onClick={addWishlistHandler}>Add Wishlist</Button></Nav.Link>
             )}
             {useMatch(':uuid/games') && (
               <>
-                <Nav.Item className="ms-2"><Button variant='light' onClick={checkPricesHandler} disabled={isLoading}>
+                <Nav.Link ><Button variant='light' onClick={checkPricesHandler} disabled={isLoading}>
                   {isLoading && (<Spinner as="span" animation="border" variant="dark" size="sm" className='me-1' />)}
                   Check Prices</Button>
-                </Nav.Item>
-                <Nav.Item className="ms-2"><Button variant='light' onClick={reloadHandler} >
+                </Nav.Link>
+                <Nav.Link ><Button variant='light' onClick={reloadHandler} >
                   <MdCached size={20} className='me-1' />
                   Reload</Button>
-                </Nav.Item>
+                </Nav.Link>
               </>
             )}
             {useMatch(':uuid/search') && (
               <>
-                <Nav.Item className="ms-2"><Button variant='success' onClick={doneHandler}>Done</Button></Nav.Item>
+                <Nav.Link><Button variant='success' onClick={doneHandler}>Done</Button></Nav.Link>
               </>
             )}
           </Nav>
-          <Nav.Item className="ms-2 text-white"><h4>{title}</h4></Nav.Item>
         </Navbar.Collapse>
       </Container>
     </Navbar>

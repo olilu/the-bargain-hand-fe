@@ -6,12 +6,12 @@ import LoadingPacman from '../../components/layout/LoadingPacman';
 
 function WishlistRoot() {
     const wishlist = useLoaderData();
-    const [title, setTitle] = useOutletContext();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
-    setTitle(`Wishlist ${wishlist.name}`);
     return (
         <>
+            <h3 className="text-center">Wishlist {wishlist.name}</h3>
+            <hr />
             <div className="d-flex justify-content-center">
                 <SearchForm 
                     wishlsit_uuid={wishlist.uuid}

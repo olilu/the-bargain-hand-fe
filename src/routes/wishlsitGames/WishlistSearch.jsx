@@ -30,6 +30,5 @@ export default WishlistSearch;
 
 export async function loader({ params }) {
     const searchList = JSON.parse(sessionStorage.getItem("games"));
-    // console.log(pictureList);
     return [searchList, params.uuid];
 }

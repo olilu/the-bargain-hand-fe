@@ -4,17 +4,15 @@ import Navigation from "../components/layout/Navigation";
 import 'bootstrap/dist/css/bootstrap.css';
 
 function RootLayout() {
-  
-  const [title, setTitle] = useState(['Wishlists Overview'])
 
   return (
     <>
-        <Navigation title={title}/>
+        <Navigation/>
         <main className="row justify-content-md-center">
           <div className="col col-lg-2">
           </div>
           <div className="mt-2 col-lg-8">
-            <Outlet context={[title, setTitle]}/>
+            <Outlet />
           </div>
           <div className="col col-lg-2">
           </div>

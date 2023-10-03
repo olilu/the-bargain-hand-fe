@@ -20,8 +20,18 @@ function CardList({ games, type, locales, addedGames = [] }) {
             )}
             {games.length === 0 && (
                 <div className="mt-3 text-black text-center">
-                    <h2>There are no games yet</h2>
-                    <p>Start your wihlist by searching for games</p>
+                    {type === 'games' && (
+                        <>
+                            <h2>There are no games yet</h2>
+                            <p>Start your wihlist by searching for games</p>
+                        </>
+                    )}
+                    {type === 'search' && (
+                        <>
+                            <h2>There are no games matching your search</h2>
+                            <p>Try searching for another game</p>
+                        </>
+                    )}
                 </div>
             )}
         </div>
