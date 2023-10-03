@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Form, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
-function SearchForm({wishlsit_uuid, setIsLoading}) {
+function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}) {
     const [shop, setShop] = useState('PlayStation'); // ['PlayStation', 'Nintendo']
     const { register, handleSubmit} = useForm();
     const navigate = useNavigate();
@@ -14,21 +14,31 @@ function SearchForm({wishlsit_uuid, setIsLoading}) {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
+        setErrorMessage(null);
         console.log("shop: " + shop);
         console.log("search data: " + data.search);
         console.log("wishlist_uuid: " + wishlsit_uuid);
         const url = `${import.meta.env.VITE_BACKEND_URL}/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlsit_uuid}`;
         console.log(url);
-        const res = await fetch(url);
-        if (!res.ok) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) {
+                console.log(`${res.url} returned ${res.status} ${res.statusText}`);
+                setErrorMessage(`Something went wrong! Unable to search for ${data.search} in ${shop} store. Error: ${res.status} ${res.statusText}`);
+            }
+            const games = await res.json();
+            console.log(games);
+            sessionStorage.setItem('games', JSON.stringify(games));
+            setIsLoading(false);
+            navigate(`/${wishlsit_uuid}/search`);
+            
+        } catch (error) {
             console.error(error);
-            console.log(`${res.url} returned ${res.status} ${res.statusText}`);
+            setErrorMessage(`Something went wrong! Unable to search for ${data.search} in ${shop} store. Error: ${error}`);    
+            setIsLoading(false);
+            navigate(`/${wishlsit_uuid}/games`);
         }
-        const games = await res.json();
-        console.log(games);
-        sessionStorage.setItem('games', JSON.stringify(games));
-        setIsLoading(false);
-        navigate(`/${wishlsit_uuid}/search`);
+
     };
 
     return (
