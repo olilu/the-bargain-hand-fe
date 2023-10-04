@@ -12,8 +12,8 @@ jobs:
         id: version_step
         run: |
           echo "##[set-output name=version;]VERSION=${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=version_tag;]${{ secrets.DOCKERHUB_USERNAME }}/the-bargain-hand-be:${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=latest_tag;]${{ secrets.DOCKERHUB_USERNAME }}/the-bargain-hand-be:latest"
+          echo "##[set-output name=version_tag;]${{ secrets.DOCKERHUB_USERNAME }}/the-bargain-hand-fe:${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=latest_tag;]${{ secrets.DOCKERHUB_USERNAME }}/the-bargain-hand-fe:latest"
       - name: Print Version
         run: |
           echo ${{steps.version_step.outputs.version_tag}}
