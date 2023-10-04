@@ -25,6 +25,10 @@ export async function action({request}) {
 
     const locale = `${postData.language_code}-${postData.country_code}`;
     const isLocaleValid = Intl.DateTimeFormat.supportedLocalesOf(locale).length > 0;
+
+    if(postData.country_code.toUpperCase() === 'UK') {
+        postData.country_code = 'GB';
+    }
     
     if (!isLocaleValid) {
         return {error: `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`};

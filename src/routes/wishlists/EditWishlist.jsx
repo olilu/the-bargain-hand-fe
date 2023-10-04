@@ -41,6 +41,10 @@ export async function action({params, request}) {
     const formData = await request.formData();
     const postData = Object.fromEntries(formData);
 
+    if(postData.country_code.toUpperCase() === 'UK') {
+        postData.country_code = 'GB';
+    }
+
     const locale = `${postData.language_code}-${postData.country_code}`;
     const isLocaleValid = Intl.DateTimeFormat.supportedLocalesOf(locale).length > 0;
     

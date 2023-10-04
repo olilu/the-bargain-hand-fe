@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       proxy: {
         '/api': {
-          target: 'http://0.0.0.0:8080',
+          target: process.env.VITE_BACKEND_URL,
           changeOrigin: true,
           secure: false,
           ws: false,

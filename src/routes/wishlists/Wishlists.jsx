@@ -27,7 +27,7 @@ function Wishlists() {
                 {wishlists.length === 0 && (
                     <div className="mt-3 text-black text-center">
                         <h2>There are no wishlists yet</h2>
-                        <p>Start your wihlist by adding a new one</p>
+                        <p>Start bargain hunting by adding a new one</p>
                     </div>
                 )}
                 <Outlet />
