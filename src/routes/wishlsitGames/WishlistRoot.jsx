@@ -13,7 +13,7 @@ function WishlistRoot() {
         <>
             <PageTitle title={`Wishlist: ${wishlist.name}`} />
             <div className="d-flex justify-content-center">
-                <SearchForm 
+                <SearchForm
                     wishlsit_uuid={wishlist.uuid}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
@@ -23,19 +23,17 @@ function WishlistRoot() {
             </div>
             <hr />
             {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
-            {isLoading 
-                ? (<><LoadingPacman /></>) 
-                : (<Outlet context={wishlist}/>)}
+            {isLoading
+                ? (<><LoadingPacman /></>)
+                : (<Outlet context={wishlist} />)}
         </>
-
     );
-
 };
 
 export default WishlistRoot;
 
-export async function loader({params}) {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${params.uuid}`);
+export async function loader({ params }) {
+    const response = await fetch(`/api/wishlist/${params.uuid}`);
     if (!response.ok) {
         console.error(error);
         return [];

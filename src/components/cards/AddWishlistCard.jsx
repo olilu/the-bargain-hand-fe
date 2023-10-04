@@ -14,7 +14,7 @@ function AddWishlistCard() {
             </Link>
             <div className="card-footer d-flex justify-content-center">
                 <Link to="/add-wishlist" className="link-light text-decoration-none">
-                    <Button variant='primary' className='btn-sm' style={{'box-shadow': '0 .125rem .25rem #000000'}}>Add Wishlsit</Button>
+                    <Button variant='primary' className='btn-sm' style={{'boxShadow': '0 .125rem .25rem #000000'}}>Add Wishlsit</Button>
                 </Link>
             </div>
         </div>

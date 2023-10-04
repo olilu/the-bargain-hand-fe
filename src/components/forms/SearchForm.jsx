@@ -15,10 +15,7 @@ function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}
     const onSubmit = async (data) => {
         setIsLoading(true);
         setErrorMessage(null);
-        console.log("shop: " + shop);
-        console.log("search data: " + data.search);
-        console.log("wishlist_uuid: " + wishlsit_uuid);
-        const url = `${import.meta.env.VITE_BACKEND_URL}/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlsit_uuid}`;
+        const url = `/api/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlsit_uuid}`;
         console.log(url);
         try {
             const res = await fetch(url);
@@ -27,7 +24,6 @@ function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}
                 setErrorMessage(`Something went wrong! Unable to search for ${data.search} in ${shop} store. Error: ${res.status} ${res.statusText}`);
             }
             const games = await res.json();
-            console.log(games);
             sessionStorage.setItem('games', JSON.stringify(games));
             setIsLoading(false);
             navigate(`/${wishlsit_uuid}/search`);

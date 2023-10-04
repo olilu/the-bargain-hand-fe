@@ -17,9 +17,7 @@ function Navigation() {
   async function checkPricesHandler() {
     setIsLoading(true);
     const wishlistUuid = location.pathname.split('/')[1];
-    console.log("wishlsit uuid: " + wishlistUuid);
-    const url = `${import.meta.env.VITE_BACKEND_URL}/wishlist/${wishlistUuid}/check-prices`;
-    console.log(url);
+    const url = `/api/wishlist/${wishlistUuid}/check-prices`;
     const res = await fetch(url);
     if (!res.ok) {
       console.log(`${res.url} returned ${res.status} ${res.statusText}`);

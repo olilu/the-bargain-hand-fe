@@ -31,8 +31,7 @@ export async function action({request}) {
 
     }
     
-    console.log(JSON.stringify(postData));
-    await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/create`, {
+    await fetch('/api/wishlist/create', {
       method: 'POST',
       body: JSON.stringify(postData),
       headers: {

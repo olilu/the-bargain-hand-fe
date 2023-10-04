@@ -46,7 +46,7 @@ function GameCard({ game, locale, type, addedGames }) {
 
     async function addGame() {
         console.log(`add game ${game.name}`);
-        const url = `${import.meta.env.VITE_BACKEND_URL}/wishlist/${game.wishlist_uuid}/add-game`;
+        const url = `/api/wishlist/${game.wishlist_uuid}/add-game`;
         const data = {
             wishlist_uuid: game.wishlist_uuid,
             game_id: game.game_id,
@@ -74,7 +74,7 @@ function GameCard({ game, locale, type, addedGames }) {
 
     async function deleteGame() {
         console.log(`delete game ${game.name}`);
-        const url = `${import.meta.env.VITE_BACKEND_URL}/wishlist/${game.wishlist_uuid}/remove-game/${game.game_id}`;
+        const url = `/api/wishlist/${game.wishlist_uuid}/remove-game/${game.game_id}`;
         const res = await fetch(url, {
             method: 'DELETE',
             headers: {
@@ -104,7 +104,7 @@ function GameCard({ game, locale, type, addedGames }) {
             </div>
             <div className='card-footer'>                
                 {(type === 'search' && !(gameAlreadyAdded())) && (
-                    <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd} style={{'box-shadow': '0 .125rem .25rem #000000'}}>
+                    <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd} style={{'boxShadow': '0 .125rem .25rem #000000'}}>
                         Add
                     </Button>
                 )}

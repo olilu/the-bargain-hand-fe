@@ -41,11 +41,12 @@ export default Wishlists;
 
 export async function loader() {
     try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/all`);
+        const response = await fetch('/api/wishlist/all');
         if (!response.ok) {
             console.error(error);
             return [[], `An error occured while loading wishlists from backend. Error: ${error}`];
         }
+        console.log(response);
         const wishlists = await response.json();
         return [wishlists, null];
     } catch (error) {

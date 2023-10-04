@@ -28,7 +28,7 @@ function EditWishlist() {
 export default EditWishlist;
 
 export async function loader({params}) {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${params.uuid}`);
+    const response = await fetch(`/api/wishlist/${params.uuid}`);
     if (!response.ok) {
         console.error(error);
         return [];
@@ -48,7 +48,7 @@ export async function action({params, request}) {
         return {error: `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`};
     }
 
-    await fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/update/${params.uuid}`, {
+    await fetch(`/api/wishlist/update/${params.uuid}`, {
       method: 'PUT',
       body: JSON.stringify(postData),
       headers: {

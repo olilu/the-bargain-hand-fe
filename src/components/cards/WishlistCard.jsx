@@ -10,7 +10,6 @@ function WishlistCard({uuid, name, language, country}) {
     const [confirmMessage, setConfirmMessage] = useState(null);
     const navigate = useNavigate();
     function editHandler() {
-        console.log("navigate to: " + `${uuid}/edit-wishlist`)
         navigate(`${uuid}/edit-wishlist`)
     };
 
@@ -24,7 +23,7 @@ function WishlistCard({uuid, name, language, country}) {
     };
 
     function deleteWishlist(uuid) {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/wishlist/delete/${uuid}`, {
+        fetch(`/api/wishlist/delete/${uuid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

@@ -9,7 +9,6 @@ function WishlistSearch() {
     const wishlist = useOutletContext();
     const [addedGames, setAddedGames] = useState([])
     const locales = `${wishlist.language_code}-${wishlist.country_code}`
-    console.log(locales);
 
     useEffect(() => {
         async function fetchAddedGames() {
