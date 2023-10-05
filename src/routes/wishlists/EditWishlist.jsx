@@ -3,10 +3,11 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import WishlistForm from '../../components/forms/WishlistForm';
+import { validateWishlistForm } from './utils';
 
 
 function EditWishlist() {
-    const wishlist =  useLoaderData();
+    const wishlist = useLoaderData();
     const location = useLocation();
     return (
         <Modal show={true} contentClassName='bg-dark text-light'>
@@ -14,11 +15,11 @@ function EditWishlist() {
                 <Modal.Title>Edit Wishlist</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <WishlistForm 
-                    actionURL={location.pathname} 
-                    email={wishlist.email} 
-                    name={wishlist.name} 
-                    country_code={wishlist.country_code} 
+                <WishlistForm
+                    actionURL={location.pathname}
+                    email={wishlist.email}
+                    name={wishlist.name}
+                    country_code={wishlist.country_code}
                     language_code={wishlist.language_code} />
             </Modal.Body>
         </Modal>
@@ -27,7 +28,7 @@ function EditWishlist() {
 
 export default EditWishlist;
 
-export async function loader({params}) {
+export async function loader({ params }) {
     const response = await fetch(`/api/wishlist/${params.uuid}`);
     if (!response.ok) {
         console.error(error);
@@ -37,28 +38,24 @@ export async function loader({params}) {
     return wishlist;
 }
 
-export async function action({params, request}) {
+export async function action({ params, request }) {
     const formData = await request.formData();
     const postData = Object.fromEntries(formData);
 
-    if(postData.country_code.toUpperCase() === 'UK') {
-        postData.country_code = 'GB';
-    }
+    const [isValid, validatedPostData, errorMessage] = validateWishlistForm(postData);
 
-    const locale = `${postData.language_code}-${postData.country_code}`;
-    const isLocaleValid = Intl.DateTimeFormat.supportedLocalesOf(locale).length > 0;
-    
-    if (!isLocaleValid) {
-        return {error: `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`};
+    if (!isValid) {
+        return {
+            error: errorMessage,
+        };
     }
-
     await fetch(`/api/wishlist/update/${params.uuid}`, {
-      method: 'PUT',
-      body: JSON.stringify(postData),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+        method: 'PUT',
+        body: JSON.stringify(validatedPostData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
-    
+
     return redirect('/'); // redirect to the parent route
-  }
+}

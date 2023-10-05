@@ -1,7 +1,9 @@
 import { redirect } from 'react-router-dom';
-import  {Modal}  from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+
 import WishlistForm from '../../components/forms/WishlistForm';
+import { validateWishlistForm } from './utils';
 
 
 function NewWishlist() {
@@ -11,7 +13,7 @@ function NewWishlist() {
                 <Modal.Title>Add New Wishlist</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <WishlistForm actionUrl="/add-wishlist"/>
+                <WishlistForm actionUrl="/add-wishlist" />
             </Modal.Body>
         </Modal>
     );
@@ -19,31 +21,27 @@ function NewWishlist() {
 
 export default NewWishlist;
 
-export async function action({request}) {
+export async function action({ request }) {
     const formData = await request.formData();
     const postData = Object.fromEntries(formData);
 
-    const locale = `${postData.language_code}-${postData.country_code}`;
-    const isLocaleValid = Intl.DateTimeFormat.supportedLocalesOf(locale).length > 0;
+    const [isValid, validatedPostData, errorMessage] = validateWishlistForm(postData);
 
-    if(postData.country_code.toUpperCase() === 'UK') {
-        postData.country_code = 'GB';
+    if (!isValid) {
+        return {
+            error: errorMessage,
+        };
     }
-    
-    if (!isLocaleValid) {
-        return {error: `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`};
 
-    }
-    
     await fetch('/api/wishlist/create', {
-      method: 'POST',
-      body: JSON.stringify(postData),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+        method: 'POST',
+        body: JSON.stringify(validatedPostData),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }).catch(error => {
         console.error(error);
     });
-    
+
     return redirect('/'); // redirect to the parent route
-  }
+}
