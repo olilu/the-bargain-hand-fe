@@ -1,30 +1,32 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { MdCheckCircleOutline } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 
 function GameCard({ game, locale, type, addedGames }) {
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    let added = false
     let colortype = 'bg-dark';
-
-     if (type === 'search') {
-        colortype = 'bg-secondary';
-    }
 
     function gameAlreadyAdded(){
         for (let i = 0; i < addedGames.length; i++) {
             if (addedGames[i].game_id === game.game_id) {
-                colortype = 'bg-success';
                 return true;
             }
         }
         return false;
     }
 
-    if (type === 'search' && gameAlreadyAdded()) {
-        colortype = 'bg-success';
+    if (type === 'search' ) {
+        added = gameAlreadyAdded()
+        if (added) {
+            colortype = 'bg-success';
+        } else {
+            colortype = 'bg-secondary';
+        }
     }
 
     function formatPrice(price) {
@@ -36,6 +38,7 @@ function GameCard({ game, locale, type, addedGames }) {
     
     function handleAdd() {
         setDisabled(true);
+        colortype = 'bg-success';
         addGame();
     };
 
@@ -103,9 +106,11 @@ function GameCard({ game, locale, type, addedGames }) {
                 }   
             </div>
             <div className='card-footer'>                
-                {(type === 'search' && !(gameAlreadyAdded())) && (
+                {(type === 'search' && !(added)) && (
                     <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd} style={{'boxShadow': '0 .125rem .25rem #000000'}}>
-                        Add
+                        {disabled 
+                            ? (<MdCheckCircleOutline size={20} />)
+                            : (<span>Add</span>)}
                     </Button>
                 )}
                 {type === 'list' && (
