@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Form, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
-function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}) {
+function SearchForm({wishlist_uuid, setIsLoading, errorMessage, setErrorMessage}) {
     const [shop, setShop] = useState('PlayStation'); // ['PlayStation', 'Nintendo']
     const { register, handleSubmit} = useForm();
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}
     const onSubmit = async (data) => {
         setIsLoading(true);
         setErrorMessage(null);
-        const url = `/api/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlsit_uuid}`;
+        const url = `/api/search/game?query=${encodeURIComponent(data.search)}&shop=${shop}&wishlist_uuid=${wishlist_uuid}`;
         console.log(url);
         try {
             const res = await fetch(url);
@@ -26,13 +26,13 @@ function SearchForm({wishlsit_uuid, setIsLoading, errorMessage, setErrorMessage}
             const games = await res.json();
             sessionStorage.setItem('games', JSON.stringify(games));
             setIsLoading(false);
-            navigate(`/${wishlsit_uuid}/search`);
+            navigate(`/${wishlist_uuid}/search`);
             
         } catch (error) {
             console.error(error);
             setErrorMessage(`Something went wrong! Unable to search for ${data.search} in ${shop} store. Error: ${error}`);    
             setIsLoading(false);
-            navigate(`/${wishlsit_uuid}/games`);
+            navigate(`/${wishlist_uuid}/games`);
         }
 
     };

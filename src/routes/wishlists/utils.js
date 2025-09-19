@@ -12,14 +12,14 @@ export function validateWishlistForm(formInput) {
     if (!isLocaleValid) {
         isValid = false;
         errorMesssage = `Country and language combination is not valid: ${locale}. It needs to be a valid locale.`
-    };
+    }
 
-    const emailRegex = "^[0-9a-z]+(?:\.[0-9a-z]+)*@[a-z0-9]{2,}(?:\.[a-z]{2,})+$";
+    const emailRegex = "^[0-9a-z]+(?:[.][0-9a-z]+)*@[a-z0-9]{2,}(?:[.][a-z]{2,})+$";
     const isEmailValid = formInput.email.match(emailRegex);
     if (!isEmailValid) {
         isValid = false;
         errorMesssage = `Email address is not valid: ${formInput.email}.`
-    };
+    }
 
     return [isValid, formInput, errorMesssage];
 }

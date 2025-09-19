@@ -53,4 +53,4 @@ export async function loader() {
         console.error(error);
         return [[], 'Unable to load wishlists from backend. Please try again later.'];
     }
-};
+}

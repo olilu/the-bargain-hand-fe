@@ -20,6 +20,6 @@ function AddWishlistCard() {
             </div>
         </div>
     )
-};
+}
 
 export default AddWishlistCard;

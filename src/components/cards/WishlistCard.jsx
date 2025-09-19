@@ -11,16 +11,16 @@ function WishlistCard({uuid, name, language, country}) {
     const navigate = useNavigate();
     function editHandler() {
         navigate(`${uuid}/edit-wishlist`)
-    };
+    }
 
     function showDeleteModal(){
         setConfirmMessage(`Are you sure you want to delete wishlist: "${name}"?`);
         setShowConfirmModal(true);
-    };
+    }
 
     function hideConfirmModal() {
         setShowConfirmModal(false);
-    };
+    }
 
     function deleteWishlist(uuid) {
         fetch(`/api/wishlist/delete/${uuid}`, {
@@ -42,7 +42,7 @@ function WishlistCard({uuid, name, language, country}) {
         .catch(error => {
             console.error(error);
         });
-    };
+    }
 
     return (
         <> 
@@ -62,6 +62,6 @@ function WishlistCard({uuid, name, language, country}) {
             <DeleteConfirmation showModal={showConfirmModal} hideModal={hideConfirmModal} message={confirmMessage} confirmModal={deleteWishlist} uuid={uuid} />
         </>
     )
-};
+}
 
 export default WishlistCard;

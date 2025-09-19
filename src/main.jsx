@@ -8,9 +8,9 @@ import RootLayout from './routes/RootLayout'
 import Wishlists, {loader as wishlistLoader} from './routes/wishlists/Wishlists'
 import AddWishlist, {action as newWishlistAction} from './routes/wishlists/AddWishlist'
 import EditWishlist, {loader as editWishlistLoader, action as editWishlistAction} from './routes/wishlists/EditWishlist'
-import WishlistRoot, {loader as wishlistRootLoader} from './routes/wishlsitGames/WishlistRoot'
-import WishlistGames, {loader as wishlistGamesLoader} from './routes/wishlsitGames/WishlistGames'
-import WishlistSearch, {loader as wishlistSearchLoader} from './routes/wishlsitGames/WishlistSearch'
+import WishlistRoot, {loader as wishlistRootLoader} from './routes/wishlistGames/WishlistRoot'
+import WishlistGames, {loader as wishlistGamesLoader} from './routes/wishlistGames/WishlistGames'
+import WishlistSearch, {loader as wishlistSearchLoader} from './routes/wishlistGames/WishlistSearch'
 
 
 const router = createBrowserRouter(

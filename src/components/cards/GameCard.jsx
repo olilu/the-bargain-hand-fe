@@ -40,7 +40,7 @@ function GameCard({ game, locale, type, addedGames }) {
         setDisabled(true);
         colortype = 'bg-success';
         addGame();
-    };
+    }
 
     function handleDelete() {   
         setDisabled(true);
@@ -93,7 +93,7 @@ function GameCard({ game, locale, type, addedGames }) {
 
     return (
         <div className={`card my-3 mx-2 px-2 py-2 text-white ${colortype}`} style={{ "width": "14rem" }}>
-            <Link to={game.link} className="link-light text-decoration-none" target='_blank' rel='noreferrer'>
+            <Link to={game.link} className="link-light text-decoration-none" target='_blank' rel='noopener noreferrer'>
                 {game.shop === 'Nintendo' && (<img src={game.img_link} className="img-thumbnail" alt={game.name} style={{'maxWidth': "100%", height: "206px", 'objectFit': "cover"}}/>)}
                 {game.shop === 'PlayStation' && (<img src={game.img_link} className="img-thumbnail" alt={game.name} />)}
             </Link>

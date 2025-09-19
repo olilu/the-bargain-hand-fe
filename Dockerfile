@@ -1,5 +1,5 @@
 # Step 1: Build the application
-FROM node:16 AS builder
+FROM node:22 AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci

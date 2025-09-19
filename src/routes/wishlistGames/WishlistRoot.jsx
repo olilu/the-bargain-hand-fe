@@ -14,7 +14,7 @@ function WishlistRoot() {
             <PageTitle title={`Wishlist: ${wishlist.name}`} />
             <div className="d-flex justify-content-center">
                 <SearchForm
-                    wishlsit_uuid={wishlist.uuid}
+                    wishlist_uuid={wishlist.uuid}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     errorMessage={errorMessage}
@@ -28,7 +28,7 @@ function WishlistRoot() {
                 : (<Outlet context={wishlist} />)}
         </>
     );
-};
+}
 
 export default WishlistRoot;
 
