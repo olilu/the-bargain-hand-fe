@@ -46,17 +46,45 @@ function WishlistCard({uuid, name, language, country}) {
 
     return (
         <> 
-            <div className="card my-3 mx-2 text-center text-white bg-dark" style={{width: '12rem'}}>
+            <div className="enhanced-card text-center text-white bg-dark" 
+                 style={{ height: 'var(--card-height-wishlist)' }}>
                 <Link to={`${uuid}/games`} className="link-light text-decoration-none">
-                    <div className="card-body">
-                            <MdList size={30}/>
-                            <h5 className="card-title">{name}</h5>
-                            <p className="card-text fst-italic">{country}_{language}</p>
+                    <div className="card-body d-flex flex-column align-items-center justify-content-center" 
+                         style={{ height: 'calc(var(--card-height-wishlist) - 60px)', padding: 'var(--spacing-md)' }}>
+                        <div className="mb-2" style={{ 
+                            background: 'var(--bg-gradient-primary)', 
+                            borderRadius: '50%', 
+                            width: '50px', 
+                            height: '50px', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center',
+                            boxShadow: 'var(--card-shadow-medium)'
+                        }}>
+                            <MdList size={24} color="white"/>
+                        </div>
+                        <h5 className="card-title" style={{ 
+                            fontSize: '1rem', 
+                            fontWeight: 'var(--font-weight-semibold)', 
+                            marginBottom: 'var(--spacing-xs)',
+                            lineHeight: '1.2'
+                        }}>{name}</h5>
+                        <p className="card-text fst-italic" style={{ 
+                            fontSize: '0.75rem', 
+                            opacity: '0.8',
+                            margin: '0'
+                        }}>{country}_{language}</p>
                     </div>
                 </Link>
-                <div className="card-footer d-flex justify-content-between">
-                    <Button variant='outline-danger' className='btn-sm' onClick={showDeleteModal}>Delete</Button>
-                    <Button variant='outline-success' className='btn-sm' onClick={editHandler}>Edit</Button>
+                <div className="card-footer d-flex gap-2" style={{ 
+                    borderTop: 'none', 
+                    background: 'transparent', 
+                    padding: 'var(--spacing-sm) var(--spacing-md)',
+                    height: '60px',
+                    alignItems: 'center'
+                }}>
+                    <Button className='enhanced-btn enhanced-btn-danger btn-sm flex-fill' onClick={showDeleteModal}>Delete</Button>
+                    <Button className='enhanced-btn enhanced-btn-primary btn-sm flex-fill' onClick={editHandler}>Edit</Button>
                 </div>
             </div>
             <DeleteConfirmation showModal={showConfirmModal} hideModal={hideConfirmModal} message={confirmMessage} confirmModal={deleteWishlist} uuid={uuid} />

@@ -10,17 +10,38 @@ function EditWishlist() {
     const wishlist = useLoaderData();
     const location = useLocation();
     return (
-        <Modal show={true} contentClassName='bg-dark text-light'>
-            <Modal.Header>
-                <Modal.Title>Edit Wishlist</Modal.Title>
+        <Modal 
+            show={true} 
+            contentClassName='bg-dark text-light'
+            size="lg"
+            style={{
+                '--bs-modal-border-radius': 'var(--card-border-radius)'
+            }}
+        >
+            <Modal.Header style={{
+                background: 'var(--bg-gradient-primary)',
+                color: 'white',
+                borderBottom: 'none',
+                borderRadius: 'var(--card-border-radius) var(--card-border-radius) 0 0'
+            }}>
+                <Modal.Title style={{
+                    fontWeight: 'var(--font-weight-semibold)',
+                    fontSize: '1.25rem'
+                }}>
+                    Edit Wishlist
+                </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{
+                padding: 'var(--spacing-lg)',
+                backgroundColor: '#343a40'
+            }}>
                 <WishlistForm
                     actionURL={location.pathname}
                     email={wishlist.email}
                     name={wishlist.name}
                     country_code={wishlist.country_code}
-                    language_code={wishlist.language_code} />
+                    language_code={wishlist.language_code}
+                    isModal={true} />
             </Modal.Body>
         </Modal>
     );

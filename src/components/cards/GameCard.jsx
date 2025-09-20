@@ -92,29 +92,79 @@ function GameCard({ game, locale, type, addedGames }) {
     }
 
     return (
-        <div className={`card my-3 mx-2 px-2 py-2 text-white ${colortype}`} style={{ "width": "14rem" }}>
+        <div className={`enhanced-card ${game.shop === 'Nintendo' ? 'platform-nintendo' : 'platform-playstation'} ${added ? 'enhanced-card-added' : ''} text-white ${colortype}`} 
+             style={{ height: 'var(--card-height-game)' }}>
             <Link to={game.link} className="link-light text-decoration-none" target='_blank' rel='noopener noreferrer'>
-                {game.shop === 'Nintendo' && (<img src={game.img_link} className="img-thumbnail" alt={game.name} style={{'maxWidth': "100%", height: "206px", 'objectFit': "cover"}}/>)}
-                {game.shop === 'PlayStation' && (<img src={game.img_link} className="img-thumbnail" alt={game.name} />)}
+                <div className="enhanced-card-image-container">
+                    <img src={game.img_link} className="enhanced-card-image" alt={game.name} />
+                </div>
             </Link>
-            <div className="card-body">
-                <h5 className="card-title">{game.name}</h5>
-                <h6 className="card-subtitle mb-2 text-muted"><span className="badge bg-primary">{game.shop}</span></h6>
-                {game.on_sale
-                    ? (<p className='card-text'><span className="badge bg-success fs-6">{formatPrice(game.price_new)}</span> <span className='text-decoration-line-through font-size-sm'>{formatPrice(game.price_old)}</span></p>)
-                    : (<p className='card-text'>{formatPrice(game.price_new)}</p>)
-                }   
+            <div className="card-body d-flex flex-column justify-content-between" style={{ 
+                height: 'calc(var(--card-height-game) - var(--card-image-height) - 50px)', 
+                padding: 'var(--spacing-md)' 
+            }}>
+                <div>
+                    <h5 className="card-title" style={{ 
+                        fontSize: '0.95rem', 
+                        fontWeight: 'var(--font-weight-semibold)', 
+                        lineHeight: '1.3', 
+                        marginBottom: 'var(--spacing-sm)',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '2',
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                    }}>{game.name}</h5>
+                    
+                    <h6 className="card-subtitle" style={{ marginBottom: 'var(--spacing-sm)' }}>
+                        <span className={`badge ${game.shop === 'Nintendo' ? 'text-bg-danger' : 'text-bg-primary'}`} 
+                              style={{ fontSize: '0.7rem', fontWeight: 'var(--font-weight-medium)' }}>
+                            {game.shop}
+                        </span>
+                    </h6>
+                </div>
+                
+                <div>
+                    {game.on_sale
+                        ? (<p className='card-text mb-0'>
+                               <span className="badge bg-success me-2" style={{ 
+                                   fontWeight: 'var(--font-weight-semibold)',
+                                   fontSize: '0.8rem'
+                               }}>
+                                   {formatPrice(game.price_new)}
+                               </span>
+                               <span className='text-decoration-line-through' style={{ 
+                                   fontSize: '0.75rem', 
+                                   opacity: '0.7'
+                               }}>
+                                   {formatPrice(game.price_old)}
+                               </span>
+                           </p>)
+                        : (<p className='card-text mb-0' style={{ 
+                               fontWeight: 'var(--font-weight-semibold)',
+                               fontSize: '0.9rem'
+                           }}>
+                               {formatPrice(game.price_new)}
+                           </p>)
+                    }   
+                </div>
             </div>
-            <div className='card-footer'>                
+            <div className='card-footer' style={{ 
+                borderTop: 'none', 
+                background: 'transparent', 
+                padding: 'var(--spacing-sm) var(--spacing-md)',
+                height: '50px',
+                display: 'flex',
+                alignItems: 'center'
+            }}>                
                 {(type === 'search' && !(added)) && (
-                    <Button disabled={disabled} variant="success" className='btn-sm' onClick={handleAdd} style={{'boxShadow': '0 .125rem .25rem #000000'}}>
+                    <Button disabled={disabled} className='enhanced-btn enhanced-btn-primary btn-sm w-100' onClick={handleAdd}>
                         {disabled 
-                            ? (<MdCheckCircleOutline size={20} />)
-                            : (<span>Add</span>)}
+                            ? (<MdCheckCircleOutline size={16} />)
+                            : (<span>Add to Wishlist</span>)}
                     </Button>
                 )}
                 {type === 'list' && (
-                    <Button disabled={disabled} variant="outline-danger" className='btn-sm' onClick={handleDelete}>
+                    <Button disabled={disabled} className='enhanced-btn enhanced-btn-danger btn-sm w-100' onClick={handleDelete}>
                         Delete
                     </Button>
                 )}

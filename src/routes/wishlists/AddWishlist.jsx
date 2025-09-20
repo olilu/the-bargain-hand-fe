@@ -8,12 +8,32 @@ import { validateWishlistForm } from './utils';
 
 function NewWishlist() {
     return (
-        <Modal show={true} contentClassName='bg-dark text-light'>
-            <Modal.Header>
-                <Modal.Title>Add New Wishlist</Modal.Title>
+        <Modal 
+            show={true} 
+            contentClassName='bg-dark text-light'
+            size="lg"
+            style={{
+                '--bs-modal-border-radius': 'var(--card-border-radius)'
+            }}
+        >
+            <Modal.Header style={{
+                background: 'var(--bg-gradient-primary)',
+                color: 'white',
+                borderBottom: 'none',
+                borderRadius: 'var(--card-border-radius) var(--card-border-radius) 0 0'
+            }}>
+                <Modal.Title style={{
+                    fontWeight: 'var(--font-weight-semibold)',
+                    fontSize: '1.25rem'
+                }}>
+                    Add New Wishlist
+                </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <WishlistForm actionUrl="/add-wishlist" />
+            <Modal.Body style={{
+                padding: 'var(--spacing-lg)',
+                backgroundColor: '#343a40'
+            }}>
+                <WishlistForm actionUrl="/add-wishlist" isModal={true} />
             </Modal.Body>
         </Modal>
     );

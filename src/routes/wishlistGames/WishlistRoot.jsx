@@ -12,20 +12,44 @@ function WishlistRoot() {
     return (
         <>
             <PageTitle title={`Wishlist: ${wishlist.name}`} />
-            <div className="d-flex justify-content-center">
-                <SearchForm
-                    wishlist_uuid={wishlist.uuid}
-                    isLoading={isLoading}
-                    setIsLoading={setIsLoading}
-                    errorMessage={errorMessage}
-                    setErrorMessage={setErrorMessage}
-                />
+            <div className="container-fluid" style={{ padding: 'var(--spacing-lg)' }}>
+                <div className="row mb-4">
+                    <div className="col-12">
+                        <SearchForm
+                            wishlist_uuid={wishlist.uuid}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                            errorMessage={errorMessage}
+                            setErrorMessage={setErrorMessage}
+                        />
+                    </div>
+                </div>
+                
+                {errorMessage && (
+                    <div className="row justify-content-center mb-4">
+                        <div className="col-12 col-lg-8">
+                            <div className="alert alert-danger" role="alert" style={{
+                                borderRadius: 'var(--card-border-radius)',
+                                border: 'none',
+                                boxShadow: 'var(--card-shadow-light)',
+                                background: '#f8d7da',
+                                color: '#721c24',
+                                fontWeight: 'var(--font-weight-medium)'
+                            }}>
+                                {errorMessage}
+                            </div>
+                        </div>
+                    </div>
+                )}
+                
+                <div className="row">
+                    <div className="col-12">
+                        {isLoading
+                            ? (<LoadingPacman />)
+                            : (<Outlet context={wishlist} />)}
+                    </div>
+                </div>
             </div>
-            <hr />
-            {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
-            {isLoading
-                ? (<><LoadingPacman /></>)
-                : (<Outlet context={wishlist} />)}
         </>
     );
 }

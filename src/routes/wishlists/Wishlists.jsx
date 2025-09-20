@@ -11,27 +11,54 @@ function Wishlists() {
     return (
         <>
             <PageTitle title="Wishlist Overview" />
-            <div className="row container-fluid justify-content-md-center">
-                {wishlists.length > 0 && (
-                    <>
-                        {wishlists.map((wishlist) => <WishlistCard 
-                            key={wishlist.uuid} 
-                            uuid={wishlist.uuid} 
-                            name={wishlist.name} 
-                            email={wishlist.email} 
-                            country={wishlist.country_code} 
-                            language={wishlist.language_code} />)}
-                    </> 
-                )}
-                {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
-                {wishlists.length === 0 && (
-                    <div className="mt-3 text-black text-center">
-                        <h2>There are no wishlists yet</h2>
-                        <p>Start bargain hunting by adding a new one</p>
+            <div className="container-fluid">
+                {errorMessage && (
+                    <div className="alert alert-danger" role="alert" style={{ 
+                        margin: 'var(--spacing-lg)',
+                        borderRadius: 'var(--card-border-radius)',
+                        boxShadow: 'var(--card-shadow-light)'
+                    }}>
+                        {errorMessage}
                     </div>
                 )}
+                
+                <div className="enhanced-card-grid">
+                    {wishlists.length > 0 && (
+                        <>
+                            {wishlists.map((wishlist) => <WishlistCard 
+                                key={wishlist.uuid} 
+                                uuid={wishlist.uuid} 
+                                name={wishlist.name} 
+                                email={wishlist.email} 
+                                country={wishlist.country_code} 
+                                language={wishlist.language_code} />)}
+                        </> 
+                    )}
+                    
+                    {wishlists.length === 0 && (
+                        <div style={{ 
+                            gridColumn: '1 / -1',
+                            textAlign: 'center',
+                            padding: 'var(--spacing-xl)', 
+                            color: '#333',
+                            background: 'rgba(255, 255, 255, 0.8)',
+                            borderRadius: 'var(--card-border-radius)',
+                            margin: 'var(--spacing-lg)',
+                            boxShadow: 'var(--card-shadow-light)'
+                        }}>
+                            <h2 style={{ fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--spacing-md)' }}>
+                                There are no wishlists yet
+                            </h2>
+                            <p style={{ fontSize: '1.1rem', opacity: '0.8' }}>
+                                Start bargain hunting by adding a new one
+                            </p>
+                        </div>
+                    )}
+                    
+                    <AddWishlistCard />
+                </div>
+                
                 <Outlet />
-                <AddWishlistCard />
             </div>
         </>
     );
